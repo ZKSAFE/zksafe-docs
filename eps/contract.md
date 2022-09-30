@@ -1,39 +1,60 @@
-### How it works
-<p>User input password to EPS ZK Circuit (running at frontend), it output hash + proof, it proving that the hash is generate from the password, EPS contract can verify it, if the hash equals the one in EPS contract, that means the user input the right password.</p>
+
+## Ethereum Password Service 合约解析
+### 工作原理
+EPS本质上是把`pwdhash`（密码的哈希值）存在合约里，如果说ENS是把`name`绑定到地址，那么EPS就是把`pwdhash`绑定到地址
+
 <br>
-<br>
-<br>
-<div align="center"><img src="./images/eps-2.png"></div>
-<br>
-<p>ZK circuit hides inputs, include password, the output is verified in EPS contract. when pwdhash equals the one in EPS contract, it proves that all output values are signed with password.</p>
-<p>The pwdhash is generate from password and wallet address, make sure that everyone's pwdhash is different.<br>
-The all hash make (ZK) Password to sign data as PrivateKey.<br>
-The nonce, proof can't be reused again, to avoid Double Spent.<br>
-</p>
-<br>
+<div align="center"><img src="../images/eps-1.png"></div>
 <br>
 
+为了实现签名，需要把 **用户想要干什么** 这个信息，用Keccak256生成`datahash`，再跟签名过期时间`expiration`、指定的链`chainId`、从1开始自增的`nonce`，用Keccak256生成`fullhash`
 
+>为什么用nonce？
+>
+>用来确保签名不能重复提交，避免双花
 
-## FAQ
-<ul>
-<li>Where is the password store?
-<p>In your mind. EPS just stores password hash.</p>
-</li>
-<li>When the proof is verified, can it be reuse again?
-<p>No, the next nonce will be +1, so the used proof is invalid.</p>
-</li>
-<li>Can the password be cracked?
-<p>6 chars password need 70 years to crack, or 70 top computers in 1 year.<br>
-8 chars, hundreds years.</p>
-</li>
-<li>Can the password verify off chain?
-<p>Of course, it dons't cost gas off chain. <br>
-But on chain verify, it costs a little bit gas.</p>
-</li>
-<li>If I forget my password, can it be recover?
-<p>No. but you can retry many times.</p>
-</li>
-</ul>
+在ZK电路里，使用Poseidon算法来生成hash（gas较低的hash算法），代码如下：
+
+```C
+pragma circom 2.0.0;
+
+include "../../node_modules/circomlib/circuits/poseidon.circom";
+
+template Main() {
+    signal input in[3];
+    signal output out[3];
+
+    component poseidon1 = Poseidon(2);
+    component poseidon2 = Poseidon(2);
+
+    poseidon1.inputs[0] <== in[0];  //pwd
+    poseidon1.inputs[1] <== in[1];  //address
+    out[0] <== poseidon1.out; //pwdhash
+
+    poseidon2.inputs[0] <== poseidon1.out;
+    poseidon2.inputs[1] <== in[2]; //fullhash
+    out[1] <== in[2]; //fullhash
+    out[2] <== poseidon2.out; //allhash
+}
+
+component main = Main();
+```
+
+画成逻辑图就是下图
+
 <br>
+<div align="center"><img src="../images/eps-2.png"></div>
 <br>
+
+`password`和`address`生成`pwdhash`，确保每个用户的`pwdhash`都不一样
+
+`pwdhash`和`fullhash`生成`allhash`，确保所有的数据都有带上
+
+最后`proof`就相当于给`allhash`、`pwdhash`、`fullhash`盖了个章，证明`pwdhash`是由`password`生成的，但是不知道`password`是啥，也证明了`fullhash`也是由`password`生成
+
+`fullhash`作为输出，在合约里可以验证是否被篡改（即签名）
+
+>听起来像绕口令？
+>
+>是的，但是运转良好
+
