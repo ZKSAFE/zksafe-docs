@@ -50,11 +50,16 @@ component main = Main();
 
 `pwdhash`和`fullhash`生成`allhash`，确保所有的数据都有带上
 
-最后`proof`就相当于给`allhash`、`pwdhash`、`fullhash`盖了个章，证明`pwdhash`是由`password`生成的，但是不知道`password`是啥，也证明了`fullhash`也是由`password`生成
+最后`proof`就相当于给`allhash`、`pwdhash`、`fullhash`盖了个章，证明`pwdhash`是由`password`生成的，但是不知道`password`是啥，也证明了`allhash`是由`password`和`fullhash`生成
 
 `fullhash`作为输出，在合约里可以验证是否被篡改（即签名）
 
 >听起来像绕口令？
 >
->是的，但是运转良好
+>是的，还有一个坑没说，Poseidon算法的输入是254位，但是Keccak256生成的`fullhash`是256位，所以需要`fullhash`除以8再输入到ZK电路，EPS合约已经自动除以8了，需要前端也除以8，这样才能在EPS合约校验通过
 
+<br>
+
+### 补充说明
+在用户侧，EPS只有改密码的功能，如果只是验证密码，获取`pwdhash`在链下就可以验证，而链上的验证一般是配合其他合约一起，做数据签名用，比如ZKSAFE合约：ZKSAFE合约把 **用户想要干什么** 这些参数，在合约内生成`datahash`传给EPS合约，EPS验证成功后，ZKSAFE合约就知道用户的密码正确，以及 **用户想要干什么** 这些参数没有被篡改（即签名），ZKSAFE合约就可以做下一步（提币）操作了
+<br>
