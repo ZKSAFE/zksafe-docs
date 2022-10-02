@@ -1,10 +1,12 @@
 # 🤖 对接
 ## Ethereum Password Service 合约对接
+
+### 准备工作
 Node.js 建议 v16，安装 [snarkjs](https://github.com/iden3/snarkjs)，你可以不会snarkjs，照着代码写也行
 ```javascript
 npm install -g snarkjs
 ```
-安装 [ethers](https://docs.ethers.io/v5/getting-started/)，你必须会ethers，以下代码都假设你会ethers，无需解释
+安装 [ethers](https://docs.ethers.io/v5/getting-started/)，你必须会ethers，所有代码示例都假设你会ethers，无需解释
 ```javascript
 npm install ethers
 ```
