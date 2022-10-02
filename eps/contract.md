@@ -1,5 +1,6 @@
 ----
-## Ethereum Password Service 合约解析
+----
+## Ethereum Password Service 工作原理
 ### 工作原理
 EPS本质上是把`pwdhash`（密码的哈希值）存在合约里，如果说ENS是把`name`绑定到地址，那么EPS就是把`pwdhash`绑定到地址
 
