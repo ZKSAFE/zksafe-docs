@@ -164,7 +164,7 @@ console.log('resetPassword done')
 合约内会用user的`pwdhash`进行密码的校验，以及把`datahash`转成254位的`fullhash`。。。总之，`getProof()`工具会处理所有ZK校验相关的参数
 
 ZKSAFE作为合作方的合约调用EPS
-```C
+```javascript
 function withdrawERC20(
     uint[8] memory proof, //转给EPS的参数
     address tokenAddr, //提什么token

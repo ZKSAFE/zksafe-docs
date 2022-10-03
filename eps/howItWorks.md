@@ -14,7 +14,7 @@ EPS本质上是把`pwdhash`（密码的哈希值）存在合约里，如果说EN
 
 在ZK电路里，使用Poseidon算法来生成hash（gas较低的hash算法），代码如下：
 
-```C
+```javascript
 pragma circom 2.0.0;
 
 include "../../node_modules/circomlib/circuits/poseidon.circom";
