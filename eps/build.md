@@ -65,6 +65,11 @@ async function getProof(pwd, address, nonce, datahash) {
 
 为方便起见，我们写了一个工具方法`getProof()`，封装了所有用到的ZK算法，处理了ZK里面256位转254位的坑，需要注意的是`circuit.wasm`、`circuit_final.zkey`、`verification_key.json`是固定值，可以在[ZK源码](https://github.com/ZKSAFE/all-contracts/tree/main/zk)找到
 
+各种参数的关系如图所示
+<br>
+<div align="center"><img src="../images/eps-1.png"></div>
+<br>
+
 `getProof()`有4个参数，分别是：
 
 * pwd：你的密码，string类型
@@ -84,6 +89,8 @@ async function getProof(pwd, address, nonce, datahash) {
 * fullhash：这个不需要传入合约，254位，string类型
 * allhash：以上所有参数的hash，uint256类型
 <br>
+
+
 
 #### 初始化密码
 
@@ -150,7 +157,7 @@ console.log('resetPassword done')
 
 * user：哪个用户的签名，address类型
 * proof：密码在ZK生成的proof，由8个uint256组成的数组
-* datahash：用户对什么数据进行的签名，这个就是数据的hash，uint256位
+* datahash：用户对什么数据进行的签名，这个就是数据的hash，uint256类型
 * expiration：签名的过期时间，uint256类型
 * allhash：签名在ZK生成allhash，uint256类型
 
