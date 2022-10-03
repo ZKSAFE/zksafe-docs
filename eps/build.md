@@ -6,7 +6,7 @@ Node.js 建议 v16，安装 [snarkjs](https://github.com/iden3/snarkjs)，你可
 ```javascript
 npm install -g snarkjs
 ```
-安装 [ethers](https://docs.ethers.io/v5/getting-started/)，你必须会ethers，所有代码示例都假设你会ethers，无需解释
+安装 [ethers](https://docs.ethers.io/v5/getting-started/)，你必须会ethers，所有代码示例都假设你会ethers
 ```javascript
 npm install ethers
 ```
@@ -28,12 +28,10 @@ async function getProof(pwd, address, nonce, datahash) {
     let expiration = parseInt(Date.now() / 1000 + 600)
     let chainId = (await provider.getNetwork()).chainId
     let fullhash = utils.solidityKeccak256(['uint256','uint256','uint256','uint256'], [expiration, chainId, nonce, datahash])
-    fullhash = s(b(fullhash).div(8)) //must be 254b, not 256b
+    fullhash = s(b(fullhash).div(8)) //fullhash必须是254位, solidityKeccak256是256位，所以要转换
 
     let input = [stringToHex(pwd), address, fullhash]
     let data = await snarkjs.groth16.fullProve({in:input}, "./zk/main9/circuit_js/circuit.wasm", "./zk/main9/circuit_final.zkey")
-
-    // console.log(JSON.stringify(data))
 
     const vKey = JSON.parse(fs.readFileSync("./zk/main9/verification_key.json"))
     const res = await snarkjs.groth16.verify(vKey, data.publicSignals, data.proof)
@@ -84,6 +82,7 @@ async function getProof(pwd, address, nonce, datahash) {
 * datahash：参数里的datahash，string类型
 * fullhash：这个不需要传入合约，254位，string类型
 * allhash：以上所有参数的hash，uint256类型
+<br>
 
 #### 初始化密码
 
@@ -102,16 +101,31 @@ await eps.resetPassword(p.proof, 0, 0, p.proof, p.pwdhash, p.expiration, p.allha
 console.log('initPassword done')
 ```
 
+`resetPassword()`的参数有7个值，分别是：
+
+* proof1：旧密码生成proof，由8个uint256组成的数组
+* expiration1：旧密码的过期时间，uint256类型
+* allhash1：旧密码生成allhash，uint256类型
+* proof2：新密码生成proof，由8个uint256组成的数组
+* pwdhash2：新密码的pwdhash，由ZK生成，uint256类型
+* expiration2：新密码的过期时间，uint256类型
+* allhash2：新密码生成allhash，uint256类型
+
+因为初始化密码没有旧密码，所以前3个旧密码相关的参数在合约里是用不到的，但是必须得传，全部传0即可，或者把新密码的`proof2`当`proof1`传也行（示例就是这么干的）
+
+成功后，调用者的address（msg.sender）的密码就是`pwd`
+<br>
+
 #### 修改密码
 
 ```javascript
-let oldpwd = 'abc123'
-let nonce = await eps.nonceOf(accounts[0].address)
-let datahash = '0'
-let oldZkp = await getProof(oldpwd, accounts[0].address, s(nonce), datahash)
+let oldpwd = 'abc123' //旧密码
+let nonce = await eps.nonceOf(accounts[0].address) //当前的nonce
+let datahash = '0' //对于resetPassword接口，datahash固定是0
+let oldZkp = await getProof(oldpwd, accounts[0].address, s(nonce), datahash) //旧密码的proof
 
-let newpwd = '123123'
-let newZkp = await getProof(newpwd, accounts[0].address, s(nonce.add(1)), datahash)
+let newpwd = '123123' //新密码
+let newZkp = await getProof(newpwd, accounts[0].address, s(nonce.add(1)/**新密码的nonce+1*/), datahash) //新密码的proof
 
 fee = await eps.fee()
 console.log('eps fee(Ether)', utils.formatEther(fee))
@@ -120,3 +134,8 @@ console.log('eps fee(Ether)', utils.formatEther(fee))
 await eps.resetPassword(oldZkp.proof, oldZkp.expiration, oldZkp.allhash, newZkp.proof, newZkp.pwdhash, newZkp.expiration, newZkp.allhash, {value: fee})
 console.log('resetPassword done')
 ```
+
+还是`resetPassword()`接口，修改密码需要用旧密码，所以要用旧密码生成前3个参数
+
+成功后，调用者的address（msg.sender）的密码就是`newpwd`，旧密码`oldpwd`作废
+<br>
