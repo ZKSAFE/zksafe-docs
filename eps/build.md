@@ -65,7 +65,7 @@ async function getProof(pwd, address, nonce, datahash) {
 
 为方便起见，我们写了一个工具方法`getProof()`，封装了所有用到的ZK算法，处理了ZK里面256位转254位的坑，需要注意的是`circuit.wasm`、`circuit_final.zkey`、`verification_key.json`是固定值，可以在[ZK源码](https://github.com/ZKSAFE/all-contracts/tree/main/zk)找到
 
-各种参数的关系如图所示
+`getProof()`即图中的ZK Circuit
 <br>
 <div align="center"><img src="../images/eps-1.png"></div>
 <br>
