@@ -1,5 +1,5 @@
-# 🤖 合约对接
-## Ethereum Password Service 合约对接
+# 🤖 技术对接
+## Ethereum Password Service 技术对接
 
 ### 准备工作
 Node.js 建议 v16，安装 [snarkjs](https://github.com/iden3/snarkjs)，你可以不会snarkjs，照着代码写也行
