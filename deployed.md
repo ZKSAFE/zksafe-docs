@@ -1,5 +1,4 @@
 # 📜 合约部署
-## Ethereum Password Service 合约部署
 
 ### Alpha版本
 

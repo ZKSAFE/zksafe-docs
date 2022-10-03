@@ -9,7 +9,6 @@
 * [📰 工作原理](eps/howItWorks.md)
 * [🤖 技术对接](eps/build.md)
 
-
 ## ZKSAFE <a href="#zksafe" id="zksafe"></a>
 
 * [👋 介绍](zksafe/README.md)
@@ -30,5 +29,7 @@
 * [📚 教程](zksafepro/tutorial.md)
 * [📜 合约](zksafepro/contract.md)
 * [🤖 对接](zksafepro/build.md) -->
+
+## 其他资料 <a href="#others" id="others"></a>
 
 * [📜 合约部署](./deployed.md)
