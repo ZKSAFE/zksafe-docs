@@ -19,7 +19,7 @@ npm install ethers
 不建议用户在EPS和ZKSAFE以外的地方输入密码，防止密码泄漏。所以EPS的合约面向的是合作方合约，比如ZKSAFE
 <br>
 
-### resetPassword 设置密码
+### resetPassword() 设置密码
 初始化密码和改密码都是这个接口，先说所有跟ZK相关的接口都要用到的工具方法`getProof()`
 
 #### 工具方法
@@ -148,7 +148,7 @@ console.log('resetPassword done')
 成功后，调用者的address（msg.sender）的密码就是`newpwd`，旧密码`oldpwd`作废
 <br>
 
-### verify 校验密码
+### verify() 校验密码
 密码可以在链下校验，获取`pwdhash`在链下就可以校验；也可以上链校验，通常是配合合作方合约一起，由合作方合约调用`EPS.verify()`，密码错误就报错，不报错的话就是密码正确，且签名有效，合作方合约可以继续处理后续
 
 不建议用户在EPS和ZKSAFE以外的地方输入密码，防止密码泄漏，所以链下校验只在EPS和ZKSAFE就行，合作方可以用链上校验的方式对接EPS
