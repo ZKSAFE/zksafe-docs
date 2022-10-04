@@ -13,8 +13,7 @@
 
 * [👋 介绍](zksafe/README.md)
 * [📚 教程](zksafe/tutorial.md)
-* [📜 合约](zksafe/contract.md)
-* [🤖 对接](zksafe/build.md)
+* [📜 合约说明](zksafe/contract.md)
 
 <!-- ## 4337 Service <a href="#4337s" id="4337s"></a>
 
