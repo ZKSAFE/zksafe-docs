@@ -11,7 +11,7 @@
 ## ZKSAFE Password <a href="#zkpass" id="zkpass"></a>
 
 * [👋 介绍](zkpass/README.md)
-* [📚 教程](akpass/tutorial.md)
+* [📚 教程](zkpass/tutorial.md)
 * [📰 工作原理](zkpass/howItWorks.md)
 * [🤖 技术对接](zkpass/build.md)
 
