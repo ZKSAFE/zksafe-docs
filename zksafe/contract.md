@@ -16,7 +16,7 @@ npm install ethers
 
 >注意：测试环境是hardhat，ethers的用法跟正式环境略有不同，以上代码都基于测试环境
 
-合约接口里用到proof的地方即基于ZK-SNARK的EPS密码，参考[EPS技术对接](../eps/build.md)
+合约接口里用到proof的地方即基于ZK-SNARK的ZKSAFE Password，参考[ZKSAFE Passwor 技术对接](../zkpass/build.md)
 
 本章假设你熟悉Solidity，所以不详细说明调用方法
 <br>
@@ -64,25 +64,25 @@ Safebox合约的拥有者，合约里除了社交恢复的所有方法都只能�
 <br>
 
 #### transferOwnership() 转让保险箱
-需要EPS密码，仅限拥有者调用
+需要密码，仅限拥有者调用
 
-转让之后，EPS密码也将重置为新owner的密码，也就是说，新owner拥有了保险箱，以及里面的所有资产
+转让之后，密码也将重置为新owner的密码，也就是说，新owner拥有了保险箱，以及里面的所有资产
 <br>
 
 #### withdrawETH() 提取原生代币
-需要EPS密码，仅限拥有者调用
+需要密码，仅限拥有者调用
 
-生成proof的时候，需要把提取数量amount的keccak256 hash值作为datahash
+生成proof的时候，需要把提取数量amount作为datahash
 <br>
 
 #### withdrawERC20() 提取ERC20代币
-需要EPS密码，仅限拥有者调用
+需要密码，仅限拥有者调用
 
 生成proof的时候，需要把代币地址tokenAddr、提取数量amount的keccak256 hash值作为datahash
 <br>
 
 #### withdrawERC721() 提取ERC721标准NFT
-需要EPS密码，仅限拥有者调用
+需要密码，仅限拥有者调用
 
 生成proof的时候，需要把NFT地址tokenAddr、NFT的tokenId的keccak256 hash值作为datahash
 <br>
@@ -93,13 +93,13 @@ Safebox合约的拥有者，合约里除了社交恢复的所有方法都只能�
 
 可能出事的情况：
 * 忘记私钥
-* 忘记EPS密码
-* EPS密码失效（在压力测试中从未发生，可认为几乎不可能发生，但不排除发生的可能）
+* 忘记ZKSAFE密码
+* ZKSAFE密码失效（在20万次压力测试中从未发生）
 * 私钥被盗（这时候owner被控制，转入gas给owner可能瞬间被划走，导致没法用owner，只能靠守护者）
 <br>
 
 #### setSocialRecover() 设置守护者
-需要EPS密码，仅限拥有者调用
+需要密码，仅限拥有者调用
 
 生成proof的时候，需要把所有守护者的地址_guardians、有效守护者数量_needGuardiansNum的keccak256 hash值作为datahash
 
