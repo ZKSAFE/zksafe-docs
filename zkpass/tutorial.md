@@ -9,22 +9,21 @@ ZKPass *（ZKSAFE Password简称ZKPass）* 只有两个功能：
 ZKPass的密码和ZKSAFE插件的密码是同一个
 
 简而言之，ZKPass是to B，ZKSAFE是to C
+<br>
+<br>
 
 ### 使用教程
 打开网站 https://password.zksafe.pro/ ，点击Connect Wallet按钮，连接MetaMask钱包
-
 <br>
 <div align="center"><img src="../images/zkpass-tutorial-1.png"></div>
 <br>
 
 输入两次相同的密码后，点击Set Password按钮，电脑进入ZK计算，需要等待loading几秒到10几秒时间（根据你电脑的性能），电脑计算完ZK后，弹出MetaMask确认框，再点击确认按钮，等待链上确认即可
-
 <br>
 <div align="center"><img src="../images/zkpass-tutorial-2.png"></div>
 <br>
 
 如果你设置过密码，那么你打开ZKPass就是重置密码页面，还可以查看最近的设置密码记录
-
 <br>
 <div align="center"><img src="../images/zkpass-tutorial-3.png"></div>
 <br>
@@ -38,8 +37,6 @@ ZKPass的密码和ZKSAFE插件的密码是同一个
 * ZKPass没有存储你的密码，没有人知道你的密码，除了你自己
 * ZKPass没有管理员，没有人能帮助你找回密码或重置密码
 * 不要忘记你的密码，不要记在电脑或手机上，记在纸上
-
-<br>
 
 我们没法阻止密码破解，关于密码强度
 * 6位密码可以在10天内破解，所以不能设置这么短
