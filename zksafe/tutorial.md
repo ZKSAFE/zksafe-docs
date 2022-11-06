@@ -59,7 +59,6 @@ ZKSAFE是钱包的安全伴侣，也是你的私人银行。钱包放零钱，�
 你也可以通过其他钱包给你的`Safebox Address`转Token
 <br>
 <div align="center"><img src="../images/zksafe-tutorial-5.png"></div>
-<br>
 
 #### 取出
 点击`橙色箭头`按钮，在弹出框中`输入Token数量`，点击`Confirm`按钮，弹出ZKSAFE转出确认框，`输入密码`，点击`Confirm`后弹出MetaMask确认框，点击`确认`等待上链即可
@@ -70,11 +69,19 @@ ZKSAFE是钱包的安全伴侣，也是你的私人银行。钱包放零钱，�
 <br>
 
 ### 社交恢复
-如果忘记密码或者私钥，可以把保险箱的所有权转给你的另一个新钱包，这样你就可以用新钱包的链上密码+私钥转出资产，而原来的旧钱包将失效
+如果忘记密码或者私钥，可以把保险箱的所有权转给你的另一个新钱包，这样你就可以用新钱包的链上密码+私钥转出资产
 <center>
-<img src="../images/zksafe-tutorial-7.png", width="500px">
-<img src="../images/zksafe-tutorial-8.png", width="500px">
+<img src="../images/zksafe-tutorial-7.png">
+<img src="../images/zksafe-tutorial-8.png">
 </center>
+
+转移保险箱所有权有2种方式：
+1. 提前设定好多签钱包，一般是你的冷钱包或好友的钱包，一起发起多签
+2. 用你的链上密码+私钥也可以转移
+
+保险箱转移给新钱包后，原来钱包的管理权将失效
+
+>**强烈建议**：ZK-SNARK的成熟度需要时间检验，不排除密码失效导致资产无法提出的可能，为了避免这种可能，强烈建议每个用户都设置多签
 
 <br>
 <br>
