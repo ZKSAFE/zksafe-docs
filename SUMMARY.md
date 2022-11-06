@@ -17,7 +17,7 @@
 
 ## ZKSAFE Wallet <a href="#zkwallet" id="zkwallet"></a>
 
-* [👋 介绍](zkpass/README.md)
+* [👋 介绍](zkwallet/README.md)
 
 ## 其他资料 <a href="#others" id="others"></a>
 
