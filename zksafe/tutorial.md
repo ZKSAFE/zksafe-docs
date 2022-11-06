@@ -70,10 +70,14 @@ ZKSAFE是钱包的安全伴侣，也是你的私人银行。钱包放零钱，�
 
 ### 社交恢复
 如果忘记密码或者私钥，可以把保险箱的所有权转给你的另一个新钱包，这样你就可以用新钱包的链上密码+私钥转出资产
+
 <center>
 <img src="../images/zksafe-tutorial-7.png">
+</center>
+<center>
 <img src="../images/zksafe-tutorial-8.png">
 </center>
+<br>
 
 转移保险箱所有权有2种方式：
 1. 提前设定好多签钱包，一般是你的冷钱包或好友的钱包，一起发起多签
