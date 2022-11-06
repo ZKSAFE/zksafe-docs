@@ -15,6 +15,10 @@
 * [📰 工作原理](zkpass/howItWorks.md)
 * [🤖 技术对接](zkpass/build.md)
 
+## ZKSAFE Wallet <a href="#zkwallet" id="zkwallet"></a>
+
+* [👋 介绍](zkpass/README.md)
+
 ## 其他资料 <a href="#others" id="others"></a>
 
 * [📜 合约部署](./deployed.md)
