@@ -26,18 +26,18 @@ ZKSAFE是钱包的安全伴侣，也是你的私人银行。钱包放零钱，�
 * 点击`Download`按钮，跳转到Chrome应用商店下载ZKSAFE插件，安装后`Download`变成`Connected`表示ZKSAFE插件连接成功
 * 点击`Connect Wallet`按钮，连接MetaMask钱包
 <br>
-<div align="center"><img src="../images/zksafe-tutorial-1.png"></div>
+<div align="center"><img src="../../images/zksafe-tutorial-1.png"></div>
 <br>
 
 新用户需要先激活保险箱，点击`Activate`按钮，弹出MetaMask确认框，再点击`确认`按钮，部署一个你专有的Safebox智能合约。上链后，`Safebox Address`即刚部署的合约地址，以后你可以直接给这个地址转Token和NFT，只有你能取出来
 <br>
-<div align="center"><img src="../images/zksafe-tutorial-2.png"></div>
+<div align="center"><img src="../../images/zksafe-tutorial-2.png"></div>
 <br>
 
 取出资产必须要有链上密码，点击`SET`按钮，在ZKSAFE插件弹出框中创建你的链上密码。等待几秒到10几秒时间（根据你的电脑性能），然后在弹出的MetaMask确认框中点击`确认`按钮。
 <center>
-<img src="../images/zksafe-tutorial-3.png", width="400px">
-<img src="../images/zksafe-tutorial-4.png", width="400px">
+<img src="../../images/zksafe-tutorial-3.png", width="400px">
+<img src="../../images/zksafe-tutorial-4.png", width="400px">
 </center>
 <br>
 
@@ -58,14 +58,14 @@ ZKSAFE是钱包的安全伴侣，也是你的私人银行。钱包放零钱，�
 
 你也可以通过其他钱包给你的`Safebox Address`转Token
 <br>
-<div align="center"><img src="../images/zksafe-tutorial-5.png"></div>
+<div align="center"><img src="../../images/zksafe-tutorial-5.png"></div>
 
 #### 取出
 点击`橙色箭头`按钮，在弹出框中`输入Token数量`，点击`Confirm`按钮，弹出ZKSAFE转出确认框，`输入密码`，点击`Confirm`后弹出MetaMask确认框，点击`确认`等待上链即可
 
 由于协议安全方面的限制，不能转出到任意地址，只能转到Owner地址，即转给自己，避免转错
 <br>
-<div align="center"><img src="../images/zksafe-tutorial-6.png"></div>
+<div align="center"><img src="../../images/zksafe-tutorial-6.png"></div>
 <br>
 除了Token（ERC20），还支持NFT（ERC721）的存取，别的资产类型不支持（比如ERC1155）
 <br>
@@ -75,8 +75,8 @@ ZKSAFE是钱包的安全伴侣，也是你的私人银行。钱包放零钱，�
 如果忘记密码或者私钥，可以把保险箱的所有权转给你的另一个新钱包，这样你就可以用新钱包的链上密码+私钥转出资产
 
 <div align="center">
-<img src="../images/zksafe-tutorial-7.png">
-<img src="../images/zksafe-tutorial-8.png">
+<img src="../../images/zksafe-tutorial-7.png">
+<img src="../../images/zksafe-tutorial-8.png">
 </div>
 <br>
 

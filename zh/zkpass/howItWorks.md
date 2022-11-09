@@ -3,7 +3,7 @@
 ZKPass *（ZKSAFE Password简称ZKPass）* 本质上是把`pwdhash`（密码的哈希值）存在合约里，如果说ENS是把`name`绑定到地址，那么ZKPass就是把`pwdhash`绑定到地址
 
 <br>
-<div align="center"><img src="../images/zkpass-1.png"></div>
+<div align="center"><img src="../../images/zkpass-1.png"></div>
 <br>
 
 为了实现签名，需要把 **用户想要干什么** 这个信息，用Keccak256生成`datahash`，再跟签名过期时间`expiration`、指定的链`chainId`、从1开始自增的`nonce`，用Keccak256生成`fullhash`
@@ -42,7 +42,7 @@ component main = Main();
 画成逻辑图就是下图
 
 <br>
-<div align="center"><img src="../images/zkpass-2.png"></div>
+<div align="center"><img src="../../images/zkpass-2.png"></div>
 <br>
 
 `password`和`address`生成`pwdhash`，确保每个用户的`pwdhash`都不一样

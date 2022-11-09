@@ -23,7 +23,7 @@ ZKSAFE插件是钱包的安全伴侣，以MetaMask为例
 
 ZKSAFE不存储用户的私钥，也不存储用户的密码，提款流程见下图
 
-<div align="center"><img src="../images/withdrawal.png"></div>
+<div align="center"><img src="../../images/withdrawal.png"></div>
 
 在提款的时候，先弹出ZKSAFE确认框，输入密码，ZKSAFE通过你的密码计算出ZK-SNARK Proof，并调出MetaMask确认框，通过MetaMask进行私钥签名上链
 <br>
@@ -37,7 +37,7 @@ ZKSAFE用的密码是[ZKSAFE Password](../zkpass/README.md)，是你账户的另
 ### 资产存放在哪里
 如图所示
 
-<div align="center"><img src="../images/zksafe-wallet.png"></div>
+<div align="center"><img src="../../images/zksafe-wallet.png"></div>
 
 钱包可以拥有资产，每个钱包也可以拥有一个自己的ZKSAFE合约。
 
@@ -82,11 +82,11 @@ ZKSAFE不存储你的密码，也没有办法替你改密码，如果你密码�
 ### 社交恢复
 如果忘记密码或私钥，可以通过事先设置的守护者们发起多签（无需密码）来社交恢复
 
-<div align="left"><img src="../images/recovery-1.png"></div>
+<div align="left"><img src="../../images/recovery-1.png"></div>
 
 保险箱的所有权转移，新拥有者的密码和私钥替代旧的
 
-<div align="right"><img src="../images/recovery-2.png"></div>
+<div align="right"><img src="../../images/recovery-2.png"></div>
 
 守护者可以是你最信任的亲人朋友，也可以是你自己的其他钱包。为保障安全，不要让守护者钱包都在同一台设备上。
 

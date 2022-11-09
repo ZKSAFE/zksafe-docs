@@ -67,7 +67,7 @@ async function getProof(pwd, address, nonce, datahash) {
 
 `getProof()`即图中的ZK Circuit
 <br>
-<div align="center"><img src="../images/zkpass-1.png"></div>
+<div align="center"><img src="../../images/zkpass-1.png"></div>
 <br>
 
 `getProof()`有4个参数，分别是：

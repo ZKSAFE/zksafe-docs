@@ -1,7 +1,7 @@
 # Languages
 
-* [中文](zh/)
 * [English](en/)
+* [中文](zh/)
 
 <!--
 * [Deutsch](de)

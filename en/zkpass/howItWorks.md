@@ -3,7 +3,7 @@
 EPS saves `pwdhash` hash of the password in the contract. ENS is to bind a `name` to an address, our EPS tries to bind `pwdhash` to an address.
 
 <br>
-<div align="center"><img src="../images/eps-1.png"></div>
+<div align="center"><img src="../../images/eps-1.png"></div>
 <br>
 
 We will sign **User actions** with Keccak256 to produce `datahash`. With `expiration`, `chainId`, an auto-incrementing `nonce` and the `datahash`, we will sign them again with Keccak256 to produce `fullhash`. `nonce` is used to avoid the multiple submission attempts.
@@ -40,7 +40,7 @@ component main = Main();
 The chart below shows the logic.
 
 <br>
-<div align="center"><img src="../images/eps-2.png"></div>
+<div align="center"><img src="../../images/eps-2.png"></div>
 <br>
 
 `password` and `address` are first combined to produce `pwdhash`. With the use of `address`, it guarantees the `pwdhash` will be different even if the passwords are the same. 

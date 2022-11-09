@@ -15,17 +15,17 @@ ZKPass的密码和ZKSAFE插件的密码是同一个
 ### 使用教程
 打开网站 https://password.zksafe.pro/ ，点击`Connect Wallet`按钮，连接MetaMask钱包
 <br>
-<div align="center"><img src="../images/zkpass-tutorial-1.png"></div>
+<div align="center"><img src="../../images/zkpass-tutorial-1.png"></div>
 <br>
 
 输入两次相同的密码后，点击`Set Password`按钮，电脑进入ZK计算，需要等待loading几秒到10几秒时间（根据你电脑的性能），电脑计算完ZK后，弹出MetaMask确认框，再点击`确认`按钮，等待链上确认即可
 <br>
-<div align="center"><img src="../images/zkpass-tutorial-2.png"></div>
+<div align="center"><img src="../../images/zkpass-tutorial-2.png"></div>
 <br>
 
 如果你设置过密码，那么你打开ZKPass就是重置密码页面，还可以查看最近的设置密码记录
 <br>
-<div align="center"><img src="../images/zkpass-tutorial-3.png"></div>
+<div align="center"><img src="../../images/zkpass-tutorial-3.png"></div>
 <br>
 需要用旧密码才能重置新密码
 <br>
