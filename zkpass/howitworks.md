@@ -1,16 +1,22 @@
 # 📰 工作原理
-## ZKSAFE Password 工作原理
-ZKPass *（ZKSAFE Password简称ZKPass）* 本质上是把`pwdhash`（密码的哈希值）存在合约里，如果说ENS是把`name`绑定到地址，那么ZKPass就是把`pwdhash`绑定到地址
 
-<br>
-<div align="center"><img src="../../images/zkpass-1.png"></div>
-<br>
+## ZKSAFE Password 工作原理
+
+ZKPass _（ZKSAFE Password简称ZKPass）_ 本质上是把`pwdhash`（密码的哈希值）存在合约里，如果说ENS是把`name`绑定到地址，那么ZKPass就是把`pwdhash`绑定到地址
+
+\
+
+
+![](../images/zkpass-1.png)
+
+\
+
 
 为了实现签名，需要把 **用户想要干什么** 这个信息，用Keccak256生成`datahash`，再跟签名过期时间`expiration`、指定的链`chainId`、从1开始自增的`nonce`，用Keccak256生成`fullhash`
 
->为什么用nonce？
+> 为什么用nonce？
 >
->用来确保签名不能重复提交，避免双花
+> 用来确保签名不能重复提交，避免双花
 
 在ZK电路里，使用Poseidon算法来生成hash（gas较低的hash算法），代码如下：
 
@@ -41,9 +47,13 @@ component main = Main();
 
 画成逻辑图就是下图
 
-<br>
-<div align="center"><img src="../../images/zkpass-2.png"></div>
-<br>
+\
+
+
+![](../images/zkpass-2.png)
+
+\
+
 
 `password`和`address`生成`pwdhash`，确保每个用户的`pwdhash`都不一样
 
@@ -53,12 +63,13 @@ component main = Main();
 
 `fullhash`作为输出，在合约里可以验证是否被篡改（即签名）
 
->听起来像绕口令？
+> 听起来像绕口令？
 >
->是的，还有一个坑没说，Poseidon算法的输入是254位，但是Keccak256生成的`fullhash`是256位，所以需要`fullhash`除以8再输入到ZK电路，ZKPass合约已经自动除以8了，需要前端也除以8，这样才能在ZKPass合约校验通过
+> 是的，还有一个坑没说，Poseidon算法的输入是254位，但是Keccak256生成的`fullhash`是256位，所以需要`fullhash`除以8再输入到ZK电路，ZKPass合约已经自动除以8了，需要前端也除以8，这样才能在ZKPass合约校验通过
 
-<br>
+\
+
 
 ### 补充说明
-在用户侧，ZKPass只有改密码的功能，如果只是验证密码，获取`pwdhash`在链下就可以验证，而链上的验证通常是配合其他合约一起，做数据签名用，比如ZKSAFE合约：ZKSAFE合约把 **用户想要干什么** 这些参数，在合约内生成`datahash`传给ZKPass合约，ZKPass验证成功后，ZKSAFE合约就知道用户的密码正确，以及 **用户想要干什么** 这些参数没有被篡改（即签名），ZKSAFE合约就可以做下一步（提币）操作了
-<br>
+
+在用户侧，ZKPass只有改密码的功能，如果只是验证密码，获取`pwdhash`在链下就可以验证，而链上的验证通常是配合其他合约一起，做数据签名用，比如ZKSAFE合约：ZKSAFE合约把 **用户想要干什么** 这些参数，在合约内生成`datahash`传给ZKPass合约，ZKPass验证成功后，ZKSAFE合约就知道用户的密码正确，以及 **用户想要干什么** 这些参数没有被篡改（即签名），ZKSAFE合约就可以做下一步（提币）操作了\

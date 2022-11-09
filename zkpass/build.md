@@ -1,28 +1,36 @@
 # 🤖 技术对接
+
 ## ZKSAFE Password 技术对接
 
 ### 准备工作
+
 Node.js 建议 v16，安装 [snarkjs](https://github.com/iden3/snarkjs)，你可以不会snarkjs，照着代码写也行
+
 ```javascript
 npm install -g snarkjs
 ```
+
 安装 [ethers](https://docs.ethers.io/v5/getting-started/)，你必须会ethers，所有代码示例都假设你会ethers
+
 ```javascript
 npm install ethers
 ```
+
 [合约源码](https://github.com/ZKSAFE/all-contracts/tree/main/contracts/zkpass)
 
 [测试代码](https://github.com/ZKSAFE/all-contracts/blob/main/test/ZKPass-test.js)
 
->注意：测试环境是hardhat，ethers的用法跟正式环境略有不同，以下代码都基于测试环境
+> 注意：测试环境是hardhat，ethers的用法跟正式环境略有不同，以下代码都基于测试环境
 
-不建议用户在ZKSAFE以外的地方输入密码，防止密码泄漏。所以ZKPass *（ZKSAFE Password简称ZKPass）* 的合约面向的是合作方合约，比如ZKSAFE
-<br>
+不建议用户在ZKSAFE以外的地方输入密码，防止密码泄漏。所以ZKPass _（ZKSAFE Password简称ZKPass）_ 的合约面向的是合作方合约，比如ZKSAFE\
+
 
 ### resetPassword() 设置密码
+
 初始化密码和改密码都是这个接口，先说所有跟ZK相关的接口都要用到的工具方法`getProof()`
 
 #### 工具方法
+
 ```javascript
 //util
 async function getProof(pwd, address, nonce, datahash) {
@@ -65,10 +73,13 @@ async function getProof(pwd, address, nonce, datahash) {
 
 为方便起见，我们写了一个工具方法`getProof()`，封装了所有用到的ZK算法，处理了ZK里面256位转254位的坑，需要注意的是`circuit.wasm`、`circuit_final.zkey`、`verification_key.json`是固定值，可以在[ZK源码](https://github.com/ZKSAFE/all-contracts/tree/main/zk)找到
 
-`getProof()`即图中的ZK Circuit
-<br>
-<div align="center"><img src="../../images/zkpass-1.png"></div>
-<br>
+`getProof()`即图中的ZK Circuit\
+
+
+![](../images/zkpass-1.png)
+
+\
+
 
 `getProof()`有4个参数，分别是：
 
@@ -87,9 +98,7 @@ async function getProof(pwd, address, nonce, datahash) {
 * nonce：参数里的nonce，string类型
 * datahash：参数里的datahash，string类型
 * fullhash：这个不需要传入合约，254位，string类型
-* allhash：以上所有参数的hash，uint256类型
-<br>
-
+* allhash：以上所有参数的hash，uint256类型\
 
 
 #### 初始化密码
@@ -121,8 +130,8 @@ console.log('initPassword done')
 
 因为初始化密码没有旧密码，所以前3个旧密码相关的参数在合约里是用不到的，但是必须得传，全部传0即可，或者把新密码的`proof2`当`proof1`传也行（示例就是这么干的）
 
-成功后，调用者的address（msg.sender）的密码就是`pwd`
-<br>
+成功后，调用者的address（msg.sender）的密码就是`pwd`\
+
 
 #### 修改密码
 
@@ -145,10 +154,11 @@ console.log('resetPassword done')
 
 还是`resetPassword()`接口，修改密码需要用旧密码，所以要用旧密码生成前3个参数
 
-成功后，调用者的address（msg.sender）的密码就是`newpwd`，旧密码`oldpwd`作废
-<br>
+成功后，调用者的address（msg.sender）的密码就是`newpwd`，旧密码`oldpwd`作废\
+
 
 ### verify() 校验密码
+
 密码可以在链下校验，获取`pwdhash`在链下就可以校验；也可以上链校验，通常是配合合作方合约一起，由合作方合约调用`ZKPass.verify()`，密码错误就报错，不报错的话就是密码正确，且签名有效，合作方合约可以继续处理后续
 
 不建议用户在ZKSAFE以外的地方输入密码，防止密码泄漏，所以链下校验只在ZKPass就行，合作方可以用链上校验的方式对接ZKPass
@@ -164,6 +174,7 @@ console.log('resetPassword done')
 合约内会用user的`pwdhash`进行密码的校验，以及把`datahash`转成254位的`fullhash`。。。总之，`getProof()`工具会处理所有ZK校验相关的参数
 
 ZKSAFE作为合作方的合约调用ZKPass
+
 ```javascript
 function withdrawERC20(
     uint[8] memory proof, //转给ZKPass的参数
@@ -180,9 +191,11 @@ function withdrawERC20(
     emit WithdrawERC20(tokenAddr, amount);
 }
 ```
+
 在这个示例中，用户想要把token从ZKSAFE提出来，所以需要对提什么token（`tokenAddr`）、提多少（`amount`）用密码进行签名
 
 ZKSAFE的链下代码
+
 ```javascript
 let pwd = 'abc123' //用户的密码
 let nonce = s(await eps.nonceOf(accounts[0].address)) //用户当前的nonce
