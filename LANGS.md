@@ -1,5 +1,8 @@
-* [English](en)
-* [简体中文](zh)
+# Languages
+
+* [中文](zh/)
+* [English](en/)
+
 <!--
 * [Deutsch](de)
 * [Español](es)
