@@ -1,78 +1,78 @@
-# 📚 教程
-## ZKSAFE 说明
+# 📚 Tutorial
+## About ZKSAFE
 
-ZKSAFE是开源免费的，协议级的安全产品，使用链上密码+私钥的多签来保护资产：
-* 私钥被盗，密码还在，资产安全
-* 密码被盗，私钥还在，资产安全
-* 密码被盗，私钥被盗，资产不安全
+ZKSAFE is an open source, free, protocol-level security product that uses on-chain password + private key multiple signing to protect assets:
+* Private key is hacked, password is safe, and your assets are safe
+* Password is cracked, private key is safe, and your assets are safe
+* Password is cracked, private key is hacked, your assets are not safe
 
-需要安装ZKSAFE插件和MetaMask插件，一个管密码，另一个管私钥
+You need to install the ZKSAFE Dapp and MetaMask Dapp, one for the password and the other for the private key
 
-核心功能有3个：
-1. 设置密码
-2. 存取资产
-3. 社交恢复
+There are three core functions:
+1. Set password
+2. Deposit/withdraw tokens
+3. Social Recovery 
 
-ZKSAFE是协议级的，没有后台，没有私钥托管，没有管理员
+ZKSAFE is protocol level products with no backend, no private key hosting, and no administrator
 
-ZKSAFE是钱包的安全伴侣，也是你的私人银行。钱包放零钱，大资金放ZKSAFE，安全第一，需要用时再从ZKSAFE提到钱包
+ZKSAFE is a security partner of your wallet and your personal bank. You can save your exchanges in Wallet, large funds in ZKSAFE, and transfer them from ZKSAFE to wallet because safety first
 
-一句话说明ZKSAFE：**即使私钥被盗，资产依然安全**
+In one word: **with ZKSAFE, even if the private key is stolen, the asset remains safe**
 <br>
 <br>
 
-### 使用教程
-打开网站 https://app.zksafe.pro/ 
-* 点击`Download`按钮，跳转到Chrome应用商店下载ZKSAFE插件，安装后`Download`变成`Connected`表示ZKSAFE插件连接成功
-* 点击`Connect Wallet`按钮，连接MetaMask钱包
+### Tutorial
+Open Dapp https://app.zksafe.pro/ 
+* Click on `Download` button to download ZKSAFE Extension in google chrome APP store, `Connected` will replace the `Download` button after connecting ZKSAFE Dapp
+* Click on `Connect Wallet` to connect MetaMask
 <br>
 <div align="center"><img src="../images/zksafe-tutorial-1.png"></div>
 <br>
 
-新用户需要先激活保险箱，点击`Activate`按钮，弹出MetaMask确认框，再点击`确认`按钮，部署一个你专有的Safebox智能合约。上链后，`Safebox Address`即刚部署的合约地址，以后你可以直接给这个地址转Token和NFT，只有你能取出来
+New users will need to Activate safebox first, click the `Activate` button, and the `confirm` button when MetaMask confirmation box popped up, to deploy your proprietary Safebox smart contracts. And then `Safebox Address` will appear, which is the deployed contract address by ZKSAFE, You can transfer Token and NFT to this address, only you can transfer them out
 <br>
 <div align="center"><img src="../images/zksafe-tutorial-2.png"></div>
 <br>
 
-取出资产必须要有链上密码，点击`SET`按钮，在ZKSAFE插件弹出框中创建你的链上密码。等待几秒到10几秒时间（根据你的电脑性能），然后在弹出的MetaMask确认框中点击`确认`按钮。
+You must have on-chain password to withdraw the asset. Click the `SET` button and create your on-chain password in the ZKSAFE Extension pop-up. Wait a few seconds (depending on your computer performance), then click the `Confirm` button in the MetaMask confirmation box that popped up
 <center>
 <img src="../images/zksafe-tutorial-3.png", width="400px">
 <img src="../images/zksafe-tutorial-4.png", width="400px">
 </center>
 <br>
 
-上链后，`Owner Address`即你的钱包地址，以后只能这个钱包才能取出保险箱资产
+`Owner Address` is your wallet address and you can transfer out your safebox assets from this address after depoyed on-chain
 
->一个钱包只能创建一个保险箱，一个钱包也只能创建一个链上密码
+>One wallet can only create one safebox, and vice versa
 >
->链上密码不是保险箱的密码，而是钱包的，通过社交恢复可以把保险箱转给另一个钱包，从而转移保险箱内的全部资产（详见社交恢复）
+>The on-chain password s not the safebox’s password, but the wallet's. The safebox can be transferred to another wallet through social recovery, to transfer all the assets in the safebox (see Social Recovery for details)
 
 <br>
 <br>
 
-### 存取资产
-激活保险箱和创建链上密码后，你就可以在保险箱和钱包之间来回转移资产了
+### Deposit & Withdrawal
+You can transfer assets between the safebox and wallet after safebox is active and password is set
 
-#### 存入
-点击`绿色箭头`按钮，在弹出框中`输入Token数量`，点击`Confirm`按钮，弹出MetaMask确认框，点击`确认`等待上链即可
+#### Deposit
+Click the `green arrow` button, enter the tokens `amount` in the pop-up box, click `Confirm` button after MetaMask confirmation box popped up, then waiting for on-chain process
 
-你也可以通过其他钱包给你的`Safebox Address`转Token
+You can also transfer your tokens to your `Safebox Address` from another wallet
 <br>
 <div align="center"><img src="../images/zksafe-tutorial-5.png"></div>
 
-#### 取出
-点击`橙色箭头`按钮，在弹出框中`输入Token数量`，点击`Confirm`按钮，弹出ZKSAFE转出确认框，`输入密码`，点击`Confirm`后弹出MetaMask确认框，点击`确认`等待上链即可
+#### Withdrawal
+Click the `orange arrow` button, enter the token `amount` in the pop-up box, click `Confirm` button, then enter the `password` when ZKSAFE confirmation box popped up, click `Confirm` after MetaMask confirmation box popped up wait for on chain data
 
-由于协议安全方面的限制，不能转出到任意地址，只能转到Owner地址，即转给自己，避免转错
+Due to security restrictions, you cannot transfer your assets to any address but only `Owner address`, to avoid wrong operations
 <br>
 <div align="center"><img src="../images/zksafe-tutorial-6.png"></div>
 <br>
-除了Token（ERC20），还支持NFT（ERC721）的存取，别的资产类型不支持（比如ERC1155）
+ZKSAFE supports the transfer of NFT（ERC721）besides tokens (ERC20), other asset types (such as ERC1155) are not supported for now
 <br>
 <br>
 
-### 社交恢复
-如果忘记密码或者私钥，可以把保险箱的所有权转给你的另一个新钱包，这样你就可以用新钱包的链上密码+私钥转出资产
+### Social Recovery
+If you forget the password or private key, you can transfer ownership of the safebox to your other new wallet, so you can use the new wallet's on-chain password + private key to withdraw the assets
 
 <div align="center">
 <img src="../images/zksafe-tutorial-7.png">
@@ -80,13 +80,13 @@ ZKSAFE是钱包的安全伴侣，也是你的私人银行。钱包放零钱，�
 </div>
 <br>
 
-转移保险箱所有权有2种方式：
-1. 提前设定好多签钱包，一般是你的冷钱包或好友的钱包，一起发起多签
-2. 用你的链上密码+私钥也可以转移
+There are 2 ways for transferring the ownership of the safebox:
+1. Set multi-signing wallet ahead, which can be your cold wallet or your friend’s wallet, to initiate multi-signing 
+2. Use your on-chain password and your private key
 
-保险箱转移给新钱包后，原来钱包的管理权将失效
+The original wallet will be invalid after your transferring the ownership of the safebox to new wallet
 
->**强烈建议**：ZK-SNARK的成熟度需要时间检验，不排除密码失效导致资产无法提出的可能，为了避免这种可能，强烈建议每个用户都设置多签
+>**Reminding**：ZK-SNARK is still need time for testing, and we could exclude the possibility of assets loss caused by password issues, so it’s strongly suggested that each user can set the multi-signing
 
 <br>
 <br>

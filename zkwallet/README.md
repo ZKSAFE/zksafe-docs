@@ -1,11 +1,11 @@
-# 👋 介绍
+# 👋 Introduction
 ## ZKSAFE Wallet
 
-还在探索中。。大概会有以下特点：
-* 基于ERC4337
-* 使用ZKPass密码替代私钥，实现无私钥钱包
-* 集成ZKSAFE保险箱，实现密码被盗，资产依然安全
-* 更低的gas费
-* 集成应用市场，安全省心畅游加密世界
+Still in researching, may has following features：
+* Based on ERC4337
+* Use ZKPass instead of private key to realize privekey-less wallet
+* Integrate ZKSAFE Safebox, the assets is still safe even if the private key is hacked
+* Lower gas fee
+* Integrate Dapp store, users play in the crypto world freely and safely
 
 

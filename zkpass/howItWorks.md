@@ -1,18 +1,16 @@
-# 📰 工作原理
-## ZKSAFE Password 工作原理
-ZKPass *（ZKSAFE Password简称ZKPass）* 本质上是把`pwdhash`（密码的哈希值）存在合约里，如果说ENS是把`name`绑定到地址，那么ZKPass就是把`pwdhash`绑定到地址
+# 📰 How it works
+## How Ethereum Password Service(EPS) works 
+EPS saves `pwdhash` hash of the password in the contract. ENS is to bind a `name` to an address, our EPS tries to bind `pwdhash` to an address.
 
 <br>
-<div align="center"><img src="../images/zkpass-1.png"></div>
+<div align="center"><img src="../images/eps-1.png"></div>
 <br>
 
-为了实现签名，需要把 **用户想要干什么** 这个信息，用Keccak256生成`datahash`，再跟签名过期时间`expiration`、指定的链`chainId`、从1开始自增的`nonce`，用Keccak256生成`fullhash`
+We will sign **User actions** with Keccak256 to produce `datahash`. With `expiration`, `chainId`, an auto-incrementing `nonce` and the `datahash`, we will sign them again with Keccak256 to produce `fullhash`. `nonce` is used to avoid the multiple submission attempts.
 
->为什么用nonce？
->
->用来确保签名不能重复提交，避免双花
+In a ZK circuit，we use Poseidon algorithm to produce hash. The algorithm is chose as it requires a low gas fee.
 
-在ZK电路里，使用Poseidon算法来生成hash（gas较低的hash算法），代码如下：
+The circuit is shown below.
 
 ```javascript
 pragma circom 2.0.0;
@@ -39,26 +37,25 @@ template Main() {
 component main = Main();
 ```
 
-画成逻辑图就是下图
+The chart below shows the logic.
 
 <br>
-<div align="center"><img src="../images/zkpass-2.png"></div>
+<div align="center"><img src="../images/eps-2.png"></div>
 <br>
 
-`password`和`address`生成`pwdhash`，确保每个用户的`pwdhash`都不一样
+`password` and `address` are first combined to produce `pwdhash`. With the use of `address`, it guarantees the `pwdhash` will be different even if the passwords are the same. 
 
-`pwdhash`和`fullhash`生成`allhash`，确保所有的数据都有带上
+`pwdhash` and `fullhash` give us `allhash`. It covers all the user actions we want to verify.
 
-最后`proof`就相当于给`allhash`、`pwdhash`、`fullhash`盖了个章，证明`pwdhash`是由`password`生成的，但是不知道`password`是啥，也证明了`allhash`是由`password`和`fullhash`生成
+At last, `proof` will show `allhash`, `pwdhash` and `fullhash` are all generated via the circuit. Without know what `password` is, we know that `pwdhash` is produced by `password`. As well as `allhash` and `fullhash`, we can be sure that only people knowing what the `password` is produce the hashes and give the proof for them.
 
-`fullhash`作为输出，在合约里可以验证是否被篡改（即签名）
+`fullhash` as the output will prevent any unwanted modification.
 
->听起来像绕口令？
->
->是的，还有一个坑没说，Poseidon算法的输入是254位，但是Keccak256生成的`fullhash`是256位，所以需要`fullhash`除以8再输入到ZK电路，ZKPass合约已经自动除以8了，需要前端也除以8，这样才能在ZKPass合约校验通过
+
+>Poseidon requires 254 bits input data, but Keccak256 consume 256 bits. We will `fullhash` right shift 3 bits.
 
 <br>
 
-### 补充说明
-在用户侧，ZKPass只有改密码的功能，如果只是验证密码，获取`pwdhash`在链下就可以验证，而链上的验证通常是配合其他合约一起，做数据签名用，比如ZKSAFE合约：ZKSAFE合约把 **用户想要干什么** 这些参数，在合约内生成`datahash`传给ZKPass合约，ZKPass验证成功后，ZKSAFE合约就知道用户的密码正确，以及 **用户想要干什么** 这些参数没有被篡改（即签名），ZKSAFE合约就可以做下一步（提币）操作了
+### Notes
+EPS system only provide password change action for the user. We can verify the password with `pwdhash` off chain. On chain, EPS can be used as signature verification. For example, in ZKSAFE contract, ZKSAFE will use **user actions** to produce `datahash`. It will be passed to EPS for verification. After the **user actions** being verified, ZKSAFE knows whoever knows the password wants to perform these **user actions**.
 <br>
