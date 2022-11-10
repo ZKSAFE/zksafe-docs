@@ -1,9 +1,9 @@
 # 📰 How it works
-## How Ethereum Password Service(EPS) works 
-EPS saves `pwdhash` hash of the password in the contract. ENS is to bind a `name` to an address, our EPS tries to bind `pwdhash` to an address.
+## How ZKSAFE Password(ZKPass) works 
+ZKPass saves `pwdhash` hash of the password in the contract. ENS is to bind a `name` to an address, our ZKPass tries to bind `pwdhash` to an address.
 
 <br>
-<div align="center"><img src="../images/eps-1.png"></div>
+<div align="center"><img src="../images/zkpass-1.png"></div>
 <br>
 
 We will sign **User actions** with Keccak256 to produce `datahash`. With `expiration`, `chainId`, an auto-incrementing `nonce` and the `datahash`, we will sign them again with Keccak256 to produce `fullhash`. `nonce` is used to avoid the multiple submission attempts.
@@ -40,7 +40,7 @@ component main = Main();
 The chart below shows the logic.
 
 <br>
-<div align="center"><img src="../images/eps-2.png"></div>
+<div align="center"><img src="../images/zkpass-2.png"></div>
 <br>
 
 `password` and `address` are first combined to produce `pwdhash`. With the use of `address`, it guarantees the `pwdhash` will be different even if the passwords are the same. 
@@ -57,5 +57,5 @@ At last, `proof` will show `allhash`, `pwdhash` and `fullhash` are all generated
 <br>
 
 ### Notes
-EPS system only provide password change action for the user. We can verify the password with `pwdhash` off chain. On chain, EPS can be used as signature verification. For example, in ZKSAFE contract, ZKSAFE will use **user actions** to produce `datahash`. It will be passed to EPS for verification. After the **user actions** being verified, ZKSAFE knows whoever knows the password wants to perform these **user actions**.
+ZKPass system only provide password change action for the user. We can verify the password with `pwdhash` off chain. On chain, ZKPass can be used as signature verification. For example, in ZKSAFE contract, ZKSAFE will use **user actions** to produce `datahash`. It will be passed to ZKPass for verification. After the **user actions** being verified, ZKSAFE knows whoever knows the password wants to perform these **user actions**.
 <br>
