@@ -1,102 +1,101 @@
 # 👋 介绍
 ## ZKSAFE
-我们创建了一种要用[密码](../zkpass/README.md)+私钥才能打开的保险箱，**即使私钥被盗，资产依然安全**
+We created a kind of Safebox with [password](../zkpass/README.md)+private key to open, **even if the private key is stolen, the asset remains safe**
 
-每个用户都可以拥有一个自己的保险箱合约，它是你的私人银行，只为你一个人服务，如果你的私钥和密码忘记了，它可以通过社交恢复帮你重置
+Users can have their own Safebox contracts, which can be understood as their own private banks. You can retrieve your assets even if you lost your private key and password by social recovery
 
-无需购买硬件，只需安装ZKSAFE浏览器插件，点击[这里]领取你的私人银行
+You only need to install ZKSAFE extension, and no hard wallet is needed
 <br>
 <br>
 
-## 保险箱和钱包
-生活中，我们不会把太多的钱放购物卡/公交卡，只把零钱放进去，而大部分的钱都是存银行，跟这个现实类似：
+## Safebox and Wallet
+We don’t save a large amount of money on gift card or bus pass in real life but small changes, but big money in the bank, same in the crypto world:
 
-少部分钱，即热资产存钱包，可以去转账，去DEFI
+* Small money into hot wallet, which can be used for transferring and DEFI investment
+* Large money into the Safebox, since safety first
 
-大部分钱，即冷资产存保险箱，安全第一
+ZKSAFE is a security partner of wallet. Take MetaMask as an example:
 
-ZKSAFE插件是钱包的安全伴侣，以MetaMask为例
+* MetaMask deal with your private key
+* ZKSAFE deal with your password
 
-* MetaMask 处理你的私钥
-
-* ZKSAFE 处理你的密码
-
-ZKSAFE不存储用户的私钥，也不存储用户的密码，提款流程见下图
+ZKSAFE doesn’t store your private key or password, the withdrawal procedure as follows:
 
 <div align="center"><img src="../images/withdrawal.png"></div>
 
-在提款的时候，先弹出ZKSAFE确认框，输入密码，ZKSAFE通过你的密码计算出ZK-SNARK Proof，并调出MetaMask确认框，通过MetaMask进行私钥签名上链
+ZKSAFE confirmation box pops up and password is needed when withdrawing, and then ZK-SNARK Proof will be calculated by your computer through your password, and MetaMask confirmation box pops, to sign with your private key
 <br>
 
-### ZKSAFE的密码和MetaMask的密码有什么区别
-完全不同的体系，MetaMask不直接存储你的私钥，而是存储了你私钥的证书，打开MetaMask时候输入的密码，其实是证书的密码，目的是导出私钥。如果证书丢失（比如重装系统），密码就导不出私钥，资产就取不出来；如果私钥被盗，黑客不需要密码，也能盗走资产。证书+密码是用来避免直接存储私钥，从而避免私钥被木马盗取
+### What’s the differences between ZKSAFE password and MetaMask password
+First, there are two completely different systems, MetaMask does not store your private key directly but the certificate of your private key. The password you enter when you open MetaMask is the password of the certificate for exporting the private key. If the certificate is lost (computer reinstall), the private key cannot be exported from the password and the asset cannot be withdrawn. If the private key is stolen, the hacker can steal the assets. Certificate + password are used to prevent the private key from being directly stored and hacked by the Trojan horse
 
-ZKSAFE用的密码是[ZKSAFE Password](../zkpass/README.md)，是你账户的另一个密码。这个密码存储在智能合约里，通过零知识证明加密，除了你自己，没人能改你的密码。密码永远在线，你是换了台电脑，密码依然有效；即使EPS倒闭，密码依然有效；只要以太坊不倒，[ZKSAFE Password](../zkpass/README.md)不倒。如果私钥被盗，黑客不知道密码，也就盗不走资产
+Password ZKSAFE used is called [ZKSAFE Password](../zkpass/README.md), which is another password for your account. This password is stored in smart contract, encrypted by Zero-knowledge proof, and no one can change your password but only yourself. Password is always online, and valid even if you changed another computer; Even if ZKSAFE is out of service, the password is still valid, and ZKSAFE Password will be valid as long as Ethereum exists. If the private key is stolen, the hacker cannot steal the assets without knowing the password
 <br>
 
-### 资产存放在哪里
-如图所示
+### Where the assets are stored
+See diagram as follows:
 
 <div align="center"><img src="../images/zksafe-wallet.png"></div>
 
-钱包可以拥有资产，每个钱包也可以拥有一个自己的ZKSAFE合约。
+Wallet owns assets, each wallet can have its own ZKSAFE contract
 
-资产可以放在钱包，用私钥就可以转移；资产可以存到自己的ZKSAFE合约，也可以存到别人的ZKSAFE合约。从ZKSAFE合约取出资产需要同时满足3点：
+Assets can be stored in the wallet and also ZKSAFE contract. The following 3 conditions need to be met when withdrawing assets from ZKSAFE contract:
 
-1. 用户（钱包）只能调用自己的ZKSAFE合约，不能调用别人的ZKSAFE合约
-2. 输入正确的EPS密码
-3. 不能提到任意地址，只能提到用户自己的钱包地址
+1. ZKSAFE contract can be called only by it's owner (wallet)
+2. Correct password
+3. No approve problem, every withdrawral leads to it's owner wallet
 
-这保证了：
+These guaranteed:
 
-1. 没有资金池，DEFI通常把大家的钱都放一个资金池里，只要资金池被盗，所有人都被盗
-2. 私钥被盗，没有密码，黑客也取不出钱
-3. 没有授权或转错之类的问题，每一笔转出都是转到用户自己的钱包
-
-<br>
-<br>
-
-## 安全性
-正确的使用ZKSAFE才能保护你的资产安全，不要出事了才跑来看这章
-
-### 资产安全性
-ZKSAFE的资产安全性有以下3种可能：
-
-1. 私钥泄漏，密码不泄漏，资产安全
-2. 密码泄漏，私钥不泄漏，资产安全
-3. 私钥泄漏，密码也泄漏，资产不安全
-
->**强烈建议**：密码怕忘记可以记在纸上，不要放在手机或电脑里，建议不要在ZKSAFE以外的地方输入密码，防止密码泄漏
+1. No assets pool. DEFI usually put their users’ assets into an asset pool, therefore, all assets are stolen once the assets pool is hacked
+2. Hacker can't steal your money even if he has your private key
+3. No authorization and wrong transfers because all the assets can be only transferred into your wallet
 
 <br>
+<br>
 
-### 密码安全性
-ZKSAFE不存储你的密码，也没有办法替你改密码，如果你密码忘记，只有事先设置好的社交恢复能帮到你
+## Security
+To use ZKSAFE to protect your assets safety as early as you can
 
-合作方如果希望校验用户的密码，可以调用ZKSAFE插件，弹出ZKSAFE密码输入框，ZKSAFE校验后将密码生成的所有参数（不包括密码）返回给合作方网站，密码不出插件，确保安全
+### Asset Security
+The assets safety of ZKSAFE are with the following 3 possibilities:
 
->**特别注意**：过于简单的密码，比如6位数字，9天之内可以破解；8位数字+英文，当下硬件需要上百年破解；但考虑到硬件的进步，我们建议12位大小写+数字+符号。在新硬件出现前，我们会升级密码算法，以确保12位密码的安全
+1. Private key is hacked, password is safe, and your assets are safe
+2. Password is cracked, private key is safe, and your assets are safe
+3. Password is cracked, private key is hacked, your assets are not safe 
+
+>**Tips**: it’s suggested to write down your password on paper rather than on cell phone or computer, do not enter the password outside ZKSAFE.
 
 <br>
 
-### 社交恢复
-如果忘记密码或私钥，可以通过事先设置的守护者们发起多签（无需密码）来社交恢复
+### Password Security
+ZKSAFE doesn't store your password, can't change your password either, you can set Social Recovery before password is lost
+
+ZKSAFE extension can be called if the partner wants to verify the user's password. After ZKSAFE verification, all parameters generated by the password (excluding the password) will be returned to the partner's website. The password will not be shown anywhere to ensure security
+
+
+>**Note**: Too simple a password like a 6 chars can be cracked in 9 days, 8 chars password now take decades for cracking, but it may take less time in the future as computer performance improves; So password of more than 12 characters (case sensitive letters+number+symbol) are recommended. We will upgrade password algorithm to ensure the security of the 12 chars password
+
+<br>
+
+### Social Recovery 
+If you forget the password or private key, you can use Social Recovery by initiating multi-signing (no password needed) 
 
 <div align="left"><img src="../images/recovery-1.png"></div>
 
-保险箱的所有权转移，新拥有者的密码和私钥替代旧的
+Once The ownership of the safebox be transferred, the password and private key are replaced
 
 <div align="right"><img src="../images/recovery-2.png"></div>
 
-守护者可以是你最信任的亲人朋友，也可以是你自己的其他钱包。为保障安全，不要让守护者钱包都在同一台设备上。
+Guardians can be your trusted relatives or friends, or your own wallets. For security, it’s better not login all guardians’ accounts on one device
 
-守护者还可以是Gnosis-safe多签钱包，这个对接我们计划中
+Guardian can also be Gnosis-safe Multi-sign wallets, which is in our plan
+
+If you feel your private key or password has been exposed, you should transfer your Safebox to a new wallet
+
+Fee is needed for transferring the Safebox
 
 
-转移保险箱所有权，除了守护者多签，密码+私钥也可以转移，如果你觉得自己的私钥或密码已泄漏，可以用这种方式转移到新的钱包
-
-转移保险箱需要额外的手续费
-
->**强烈建议**：ZK-SNARK的成熟度需要时间检验，不排除密码失效导致资产无法提出的可能，为了避免这种可能，强烈建议每个用户都设置社交恢复
+>**Reminding**: ZK-SNARK is still need time for testing, it’s strongly suggested that every user could set the Social Recovery
 
 
