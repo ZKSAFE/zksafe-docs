@@ -1,4 +1,4 @@
-# 🥳 Welcom
+# 🥳 Welcome
 <br>
 <br>
 <div align="center"><img src="./images/zkSafe-logo.svg"></div>

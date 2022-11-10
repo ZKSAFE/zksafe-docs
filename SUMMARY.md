@@ -1,6 +1,6 @@
 # Table of contents
 
-* [🥳 Welcom](README.md)
+* [🥳 Welcome](README.md)
 
 ## ZKSAFE <a href="#zksafe" id="zksafe"></a>
 
@@ -12,7 +12,7 @@
 
 * [👋 Intro](zkpass/README.md)
 * [📚 Tutorial](zkpass/tutorial.md)
-* [📰 HowItWorks](zkpass/howItWorks.md)
+* [📰 How It Works](zkpass/howItWorks.md)
 * [🤖 Build](zkpass/build.md)
 
 ## ZKSAFE Wallet <a href="#zkwallet" id="zkwallet"></a>
