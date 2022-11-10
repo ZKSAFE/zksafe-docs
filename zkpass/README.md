@@ -1,49 +1,52 @@
-# 👋 介绍
+# 👋 Introduction
 ## ZKSAFE Password
-你有没有想过，管理员可以修改你的密码，其实你从来没拥有过你的密码
+Have you ever thought that the administrator can change your password, and you never have your own password actually
 
-所以我们想要设计这样一个密码体系，它应该满足：
+That’s why we want to design such a cryptosystem that should satisfy:
 
-* 永不宕机
-* 密码不暴露
-* 只有你自己能修改你自己的密码
+* No downtime
+* Password not be exposed
+* Only you can change your own password
 
-在EVM智能合约里，可以实现，但是有一个新的问题：三明治攻击
+It can be realized in EVM smart contract but the new issue: Sandwich Attack
 <br>
 
-### 三明治攻击
-比方说你提交了一个取款的tx，里面带上了你的密码验证信息，因为tx是公开的，在缓冲区排队的时候，黑客复制这个tx，把取款地址换成自己的，因为没动密码验证信息，所以在合约里是可以校验通过的，然后用更高的gas提交，这样能在你前面抢跑，就能取走你的钱
+### Sandwich Attack
+Let's say you have submitted a tx of a withdrawal with your password verification information. Supposed a hacker copied the tx when loading and processing because the tx is open, and changed withdrawal address to his own address, because no dynamic password authentication information, so the verification passed in the contract, then he submitted with higher gas, it can be processed before you, and take your money
 
-所以还得加上一条：
-* 签名功能
+Therefore, it also should be with
+* Signing Feature 
+
 <br>
 
-### 签名功能
-在你提交取款tx的时候，tx里要把**提多少钱给谁**这个信息用密码进行签名，如果篡改了tx的信息，在合约里就能校验出来，从而阻止三明治攻击
+### Signing Feature
+When you submit the withdrawal tx, the tx should sign the withdrawal information by password. if the tx information is tampered, it can be checked in the contract, so as to prevent the sandwich attack
 
-传统的算法里只有私钥能对数据签名，我们意外的发现ZK-SNARK做一些电路编程，也可以实现密码对数据签名，虽然历尽千辛万苦，在N次质疑和9次算法调整后，我们做出来了
+Only the private key can sign the data in traditional algorithm. We unexpectedly found that ZK-SNARK can do some circuit programming and realize the password to sign the data. After many times of questioning and algorithm adjustment, we finally made it !
+
 <br>
 
-### 起源
-采用这套密码体系做的第一个产品：**ZKSAFE**，运行非常棒！
+### Origin
+The first product created with this system is **ZKSAFE**, and it works great !
 
-然后我们觉得这么棒的密码体系应该发扬光大，它不光能支持ZKSAFE，还能支持各种资管平台，甚至能支持无私钥钱包（这将大大降低用户进入加密世界的门槛）。所以这套密码体系就是：
+We then decided that such a great cryptography system should be expanded to support not only ZKSAFE, but also various asset management platforms, and even private key-less wallets (which would greatly reduce the barrier for users to entry Web3). And this password system is
 
-**ZKSAFE Password（简称ZKPass）**
+**ZKSAFE Password (abbr.ZKPass)**
 
-**你的密码，你值得拥有！**
+
+**Your own password, you deserve it !**
 <br>
 
-### 竞品MPC
-再次强调一下，ZKPass *（ZKSAFE Password简称ZKPass）* 没有采用MPC（私钥分片）方案。很多人问这个，可以当作竞品对比一下：
+### Competitor MPC
+ZKSAFE Password（abbr.ZKPass）does not use the MPC (private key sharding) scheme. Here we would like to give a comparison since there are many people ask this:
 
-* MPC将私钥分布式存放在多个节点
-  * 有中心化风险，节点被攻击可能导致所有人私钥丢失
-  * 私钥被盗，密码啥的都没用
+* MPC divides the private key into pieces (shards) and distributes it to multiple nodes
+  * It with centralization risk because the node can be attacked which can lead the loss of the private keys
+  * The password is useless when private key is stolen
 
-* ZKPass纯算法实现密码功能，没有节点
-  * 去中心化，不存储私钥也不存储密码
-  * 私钥被盗，密码依然管用 
+* ZKPASS is pure algorithm to achieve the password function with no node
+  * Decentralized, stores no private keys or passwords
+  * Even private key is stolen, the password still works
 
-当然了，作为私钥托管方案，MPC是不错的。而ZKPass是协议级、非托管的密码算法。
+MPC is good as the private key custody plan. And ZKPass is protocol-level, non-custody password algorithm
 <br>
