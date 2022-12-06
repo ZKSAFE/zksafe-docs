@@ -27,3 +27,12 @@ ZKPass deployed: 0x72f3E7DdAe7f5B8859a230FE00f4214d582622fF
 
 SafeboxFactory deployed: 0xd9403569f3447121eb78d426Bb5eFC7D10316b50
 
+<br>
+
+### V1正式版 [(SlowMist Audit Report)](images/SlowMistAuditReport-ZKSAFE.pdf)
+
+#### Ethereum\BSC\Optimism\Arbitrum\Polygon\
+
+ZKPass deployed: 0x9802cBf6480FE2a0c69740Bc8008739DfF1E7CEF
+
+SafeboxFactory deployed: 0x8528d5a340Bef2e50844CDABdFa21bC6B57c3982
