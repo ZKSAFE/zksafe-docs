@@ -33,9 +33,9 @@ async function getProof(pwd, address, nonce, datahash) {
     fullhash = s(b(fullhash).div(8)) //fullhash must 254b, solidityKeccak256 is 256b, so it need convert
 
     let input = [stringToHex(pwd), address, fullhash]
-    let data = await snarkjs.groth16.fullProve({in:input}, "./zk/main9/circuit_js/circuit.wasm", "./zk/main9/circuit_final.zkey")
+    let data = await snarkjs.groth16.fullProve({in:input}, "./zk/v1/circuit_js/circuit.wasm", "./zk/v1/circuit_final.zkey")
 
-    const vKey = JSON.parse(fs.readFileSync("./zk/main9/verification_key.json"))
+    const vKey = JSON.parse(fs.readFileSync("./zk/v1/verification_key.json"))
     const res = await snarkjs.groth16.verify(vKey, data.publicSignals, data.proof)
 
     if (res === true) {
