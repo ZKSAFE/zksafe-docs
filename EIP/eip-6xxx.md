@@ -114,7 +114,7 @@ The chart below shows ZK Circuit logic.
 <div align="center"><img src="../images/zkpass-2.png"></div>
 <br>
 
-To verify the signature, it need proof \ allhash \ pwdhash \ fullhash, this is also the ES contract work rationale.
+To verify the signature, it needs proof \ allhash \ pwdhash \ fullhash, this is also the ES contract work rationale.
 
 <br>
 <div align="center"><img src="../images/zkpass-3.png"></div>
