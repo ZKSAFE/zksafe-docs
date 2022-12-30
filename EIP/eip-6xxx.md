@@ -10,13 +10,16 @@ category: ERC
 created: 2022-12-30
 ---
 
+
 ## Abstract
 Elastic signature (ES) aims to sign data with a secret that user can change and it can be flexible in length. To user, it uses like password. ES provides the same signing capability as the private key, and it is fully decentralized. This EIP defines a protocol that a smart contract can implement to verify and authorize operations with ES.
+
 
 ## Motivation
 Why private key cannot be changed? For years, we have been looking for ways to lower on-boarding barrier for users, especially those with less technical experiences. Private key custody solutions seem to provide an user friendly on-boarding experience, but it is vendor dependent and is not on-chain. ES makes a breakthrough with Zero-knowledge technology. It generates signature on client side. The verification will be done in smart contract. 
 
 ES is a new signature algorithm, it is not trying to instead of private key, but can also be served as an additional signing mechanism to the private key signature. It can create a double signed message to provide additional securities. It can be used as a plugin to smart contract wallet like account abstraction (EIP 4337). 
+
 
 ## Specification
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
@@ -119,12 +122,12 @@ To verify the signature, it need proof \ allhash \ pwdhash \ fullhash, this is a
 
 The user operation data, withdrawal data .etc, in front-end ZK circuit, it generates proof and allhash, then send all of them to a third-party contract, that contract can gernerate the datahash, it sends datahash \ proof \ allhash \ user address to ES contract, ES contract verifies that the datahash is from the user, which means the withdrawal data is signed by user's pwd.
 
-## Backwards Compatibility
 
+## Backwards Compatibility
 This EIP is backward compatible with previous work on signature validation since this method is specific to password based signatures and not EOA signatures. 
 
-## Reference Implementation
 
+## Reference Implementation
 Example implementation of a signing contract:
 
 ```javascript
@@ -250,14 +253,20 @@ template Main() {
 component main = Main();
 ```
 
+
 ## Security Considerations
 Since the pwdhash is public, it is possible to be crack the password. We estimate the Poseidon hash rate of RTX3090 will be 100Mhash/s, this is the estimate of crack time:
 
 8 chars (number) : 1 secs
+
 8 chars (number + english) : 25 days
+
 8 chars (number + english + symbol) : 594 days
+
 12 chars (number) : 10000 sec
+
 12 chars (number + english) : 1023042 years
+
 12 chars (number + english + symbol) : 116586246 years
 
 if password is 40 chars (number + english + symbol), it is more difficult to be crack than private key.
