@@ -257,17 +257,13 @@ component main = Main();
 ## Security Considerations
 Since the pwdhash is public, it is possible to be crack the password. We estimate the Poseidon hash rate of RTX3090 will be 100Mhash/s, this is the estimate of crack time:
 
-8 chars (number) : 1 secs
+8 chars (number) : 1 secs <br>
+8 chars (number + english) : 25 days <br>
+8 chars (number + english + symbol) : 594 days <br>
 
-8 chars (number + english) : 25 days
-
-8 chars (number + english + symbol) : 594 days
-
-12 chars (number) : 10000 sec
-
-12 chars (number + english) : 1023042 years
-
-12 chars (number + english + symbol) : 116586246 years
+12 chars (number) : 10000 secs <br>
+12 chars (number + english) : 1023042 years <br>
+12 chars (number + english + symbol) : 116586246 years <br>
 
 if password is 40 chars (number + english + symbol), it is more difficult to be crack than private key.
 
