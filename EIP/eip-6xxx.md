@@ -2,7 +2,7 @@
 eip: 6xxx
 title: Elastic Signature
 description: Standard way to verify a elastic signature in smart contract
-author: George (@JXRow), Daniel (@yannuil)
+author: George (@JXRow)
 discussions-to: https://github.com/ethereum/EIPs/issues/6xxx
 status: Draft
 type: Standards Track
