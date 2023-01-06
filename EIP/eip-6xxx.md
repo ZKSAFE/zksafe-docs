@@ -1,9 +1,9 @@
 ---
-eip: 6xxx
+eip: EIP
 title: Elastic Signature
 description: Standard way to verify a elastic signature in smart contract
 author: George (@JXRow)
-discussions-to: https://github.com/ethereum/EIPs/issues/6xxx
+discussions-to:
 status: Draft
 type: Standards Track
 category: ERC
@@ -12,18 +12,34 @@ created: 2022-12-30
 
 
 ## Abstract
-Elastic signature (ES) aims to sign data with a secret that user can change and it can be flexible in length. To user, it uses like password. ES provides the same signing capability as the private key, and it is fully decentralized. This EIP defines a protocol that a smart contract can implement to verify and authorize operations with ES.
+Elastic signature (ES) aims to sign data with a human friendly secret. The secret can be verified fully on-chain and is not stored anywhere. A user can change the secret as often as they need to. The secret does not have a fixed length. The secret will be just like password, which is a better understood concept than private key. This is specifically true for non-technical users. This EIP defines a smart contract interface to verify and authorize operations with ES.
 
 
 ## Motivation
-Why private key cannot be changed? For years, we have been looking for ways to lower on-boarding barrier for users, especially those with less technical experiences. Private key custody solutions seem to provide an user friendly on-boarding experience, but it is vendor dependent and is not on-chain. ES makes a breakthrough with Zero-knowledge technology. It generates signature on client side. The verification will be done in smart contract. 
+What would a changeable "private key" enable us? For years, we have been looking for ways to lower on-boarding barrier for users, especially those with less technical experiences. Private key custody solutions seem to provide an user friendly on-boarding experience, but it is vendor dependent and is not on-chain. ES makes a breakthrough with Zero-knowledge technology. It generates signature on client side. The verification will be done in a smart contract. 
 
-ES is a new signature algorithm, it is not trying to instead of private key, but can also be served as an additional signing mechanism to the private key signature. It can create a double signed message to provide additional securities. It can be used as a plugin to smart contract wallet like account abstraction (EIP 4337). 
+ES is a new signature algorithm. It is not an either-or solution to the private key. It is designed to serve as an additional signing mechanism to the private key signature. We can create a double signed message to provide additional securities. It can be used as a plugin to smart contract wallet, like account abstraction (EIP 4337). 
 
 
 ## Specification
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
+There are three parties involved, Verifier, Requester and Prover.
+
+- A verifier, 
+  - should verify the hashes that are computed as agreed using the proof.
+  - must not store password in plain text.
+- A requester
+  - should provide all operation parameters to the prover.
+  - shall request a verification from the verifier. 
+- An prover
+  - should compute the hashes from all operation parameters given, well-known variables and the password. 
+  - This computation 
+    - should be agreed with the verifier.
+    - should generate a proof of the process.
+    - should output at least three hashes.
+
+Below is the interface that a verifier should implement.
 ```javascript
 pragma solidity ^0.8.0;
 
@@ -100,13 +116,13 @@ This function should be called by another contract, that contract knows the oper
 
 
 ## Rationale
-The contract stores everyone's pwdhash (password hash).
+The contract will store everyone's password hash (`pwdhash`).
 
 <br>
 <div align="center"><img src="../images/zkpass-1.png"></div>
 <br>
 
-Elastic signature require ZK-SNARK to hide pwd, the contract dosen't know the pwd, but it get the proof which generated from ZK, the proof proves that the pwdhash is generated from pwd, that means the pwd is correct, and the proof also proves that the allhash is generated from all params of user operation, that means the user operation cannot be falsified, just like be signed by pwd.
+ES generates ZK SNARK to show knowing the password.
 
 The chart below shows ZK Circuit logic.
 
