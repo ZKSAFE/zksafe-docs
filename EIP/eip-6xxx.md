@@ -16,9 +16,13 @@ Elastic signature (ES) aims to sign data with a human friendly secret. The secre
 
 
 ## Motivation
-What would a changeable "private key" enable us? For years, we have been looking for ways to lower on-boarding barrier for users, especially those with less technical experiences. Private key custody solutions seem to provide an user friendly on-boarding experience, but it is vendor dependent and is not on-chain. ES makes a breakthrough with Zero-knowledge technology. It generates signature on client side. The verification will be done in a smart contract. 
+What would a changeable "private key" enable us? For years, we have been looking for ways to lower on-boarding barrier for users, especially those with less technical experiences. Private key custody solutions seem to provide an user friendly on-boarding experience, but it is vendor dependent and is not decentralized. ES makes a breakthrough with Zero-knowledge technology. It generates signature on client side. The verification will be done in a smart contract. 
 
-ES is a new signature algorithm. It is not an either-or solution to the private key. It is designed to serve as an additional signing mechanism to the private key signature. We can create a double signed message to provide additional securities. It can be used as a plugin to smart contract wallet, like account abstraction (EIP 4337). 
+
+## Use case
+ES is a new signature algorithm. It is not an either-or solution to the private key. It is designed to serve as an additional signing mechanism to the private key signature.
+- It can create a double signed message to provide double securities (Elastic sign + private key sign).
+- It can be used as a plugin to smart contract wallet, like Account Abstraction (EIP 4337). Decentralized Password instead of private key, more users can get into Ethereum.
 
 
 ## Specification
@@ -27,19 +31,19 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 There are three parties involved, Verifier, Requester and Prover.
 
 - A verifier, 
-  - should verify the hashes that are computed as agreed using the proof.
-  - must not store password in plain text.
+  - SHOULD verify the hashes that are computed as agreed using the proof.
+  - MUST NOT store password in plain text.
 - A requester
-  - should provide all operation parameters to the prover.
-  - shall request a verification from the verifier. 
-- An prover
-  - should compute the hashes from all operation parameters given, well-known variables and the password. 
+  - SHOULD provide all operation parameters to the prover.
+  - SHALL request a verification from the verifier. 
+- A prover
+  - SHOULD compute the hashes from all operation parameters given, well-known variables and the password. 
   - This computation 
-    - should be agreed with the verifier.
-    - should generate a proof of the process.
-    - should output at least three hashes.
+    - SHOULD be agreed with the verifier.
+    - SHOULD generate a proof of the process.
+    - SHOULD output at least three hashes.
 
-Below is the interface that a verifier should implement.
+Below is the interface that a verifier SHOULD implement.
 ```javascript
 pragma solidity ^0.8.0;
 
