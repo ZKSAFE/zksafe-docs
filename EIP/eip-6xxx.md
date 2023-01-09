@@ -12,17 +12,17 @@ created: 2022-12-30
 
 
 ## Abstract
-Elastic signature (ES) aims to sign data with a human friendly secret. The secret can be verified fully on-chain and is not stored anywhere. A user can change the secret as often as they need to. The secret does not have a fixed length. The secret will be just like password, which is a better understood concept than private key. This is specifically true for non-technical users. This EIP defines a smart contract interface to verify and authorize operations with ES.
+Elastic signature (ES) aims to sign data with a human friendly secret. The secret will be verified fully on-chain and is not stored anywhere. A user can change the secret as often as they need to. The secret does not have a fixed length. The secret will be just like password, which is a better understood concept than private key. This is specifically true for non-technical users. This EIP defines a smart contract interface to verify and authorize operations with ES.
 
 
 ## Motivation
-What would a changeable "private key" enable us? For years, we have been looking for ways to lower on-boarding barrier for users, especially those with less technical experiences. Private key custody solutions seem to provide an user friendly on-boarding experience, but it is vendor dependent and is not decentralized. ES makes a breakthrough with Zero-knowledge technology. It generates signature on client side. The verification will be done in a smart contract. 
+What would a changeable "private key" enable us? For years, we have been looking for ways to lower on-boarding barrier for users, especially those with less technical experiences. Private key custody solutions seem to provide an user friendly on-boarding experience, but it is vendor dependent and is not decentralized. ES makes a breakthrough with Zero-knowledge technology. Users generate proof of knowing the secret and a smart contract will verify the proof. 
 
 
 ## Use case
-ES is a new signature algorithm. It is not an either-or solution to the private key. It is designed to serve as an additional signing mechanism to the private key signature.
-- It can create a double signed message to provide double securities (Elastic sign + private key sign).
-- It can be used as a plugin to smart contract wallet, like Account Abstraction (EIP 4337). Decentralized Password instead of private key, more users can get into Ethereum.
+ES is an alternative signing algorithm. It is not an either-or solution to the private key. It is designed to serve as an additional signing mechanism on top of the private key signature.
+- A DeFi app can utilize ES into their transfer fund process. Users will be required to provide their passwords to complete the transaction. This gives an extra protection even if the private key is compromised.
+- ES can also be used as a plugin to a smart contract wallet, like Account Abstraction (EIP 4337). A decentralized password is picked instead of the private key. This could lead to a smooth onboarding experiences for new Ethereum Dapp users.
 
 
 ## Specification
@@ -31,17 +31,20 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 There are three parties involved, Verifier, Requester and Prover.
 
 - A verifier, 
-  - SHOULD verify the hashes that are computed as agreed using the proof.
+  - SHOULD verify the proof given all the public outputs.
   - MUST NOT store password in plain text.
 - A requester
-  - SHOULD provide all operation parameters to the prover.
-  - SHALL request a verification from the verifier. 
+  - SHOULD generate a hash of an operation and its parameters, and provide the hash to the prover.
+  - SHALL request a verification from the verifier for any prover. 
 - A prover
-  - SHOULD compute the hashes from all operation parameters given, well-known variables and the password. 
-  - This computation 
-    - SHOULD be agreed with the verifier.
-    - SHOULD generate a proof of the process.
-    - SHOULD output at least three hashes.
+  - SHOULD generate the proof the public outputs from the operation hash, well-known variables and the private secret (password). 
+    - well-known variable 
+      - SHOULD include a nonce from the verifier
+      - MAY include an expiration timestamp 
+    - public outputs 
+      - SHOULD include one reflecting the private secret, pwdhash.
+      - SHOULD include one reflecting the operation hash and well-known variables, fullhash.
+      - SHOULD include one resulting from pwdhash and fullhash.
 
 Below is the interface that a verifier SHOULD implement.
 ```javascript
