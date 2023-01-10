@@ -34,8 +34,8 @@ There are three parties involved, Verifier, Requester and Prover.
   - SHOULD verify the proof given all the public outputs.
   - MUST NOT store password in plain text.
 - A requester
-  - SHOULD generate a hash of an operation and its parameters, and provide the hash to the prover.
-  - SHALL request a verification from the verifier for any prover. 
+  - SHOULD generate a datahash of an operation and its parameters, and provide the datahash to the verifier.
+  - SHALL request a verification from the verifier. 
 - A prover
   - SHOULD generate the proof the public outputs from the operation hash, well-known variables and the private secret (password). 
     - well-known variable 
