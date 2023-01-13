@@ -28,8 +28,6 @@ ES is an alternative signing algorithm. It is not an either-or solution to the p
 ## Specification
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
-### Variables
-
 Let:
 
 - `pwdhash` represents the hash of the private secret (password).
@@ -38,6 +36,7 @@ Let:
 - `expiration` is the timestamp after which the intended transaction expires. 
 - `allhash` represents the hash of `fullhash` and `pwdhash`.
 
+
 There are three parties involved, Verifier, Requester and Prover.
 
 - A verifier, 
@@ -45,14 +44,14 @@ There are three parties involved, Verifier, Requester and Prover.
   - SHOULD derive `pwdhash` for a given address. The address can be an EOA or a smart contract wallet.
   - SHOULD verify the proof with the derived `pwdhash`, the computed `fullhash` and a `allhash`, which is submitted by the requester.
 - A requester
-  - SHOULD generate `datahash`.
+  - SHOULD generate `datahash` and decide an `expiration`.
   - SHALL request a verification from the verifier with, 
-    - `proof` and `allhash` which are computed by the prover;
+    - `proof` and `allhash` which are provided by the prover;
     - `datahash`;
     - `expiration`.
 - A prover
   - SHOULD generate the `proof` and `allhash` from, 
-    - `datahash` and `expiration` which are provided by the requester;
+    - `datahash` and `expiration` which are agreed with the requester;
     - `nonce` and other well-known variables. 
 
 There are also some requirements.
@@ -66,10 +65,9 @@ There are also some requirements.
   - one reflecting the `fullhash`;
   - one reflecting the `allhash`.
 - The computation of `fullhash` SHOULD be agreed by both the verifier and the prover.
+- The computation of `datahash`
 
-### Interface
-
-#### IElasticSignature 
+### IElasticSignature Interface 
 This is the verifier interface.
 ```javascript
 pragma solidity ^0.8.0;
@@ -142,27 +140,25 @@ interface IElasticSignature {
 
 
 ## Rationale
-The contract will store everyone's password hash (`pwdhash`).
+The contract will store everyone's `pwdhash`.
 
 <br>
 <div align="center"><img src="../images/zkpass-1.png"></div>
 <br>
 
-ES generates ZK SNARK to show knowing the password.
-
-The chart below shows ZK Circuit logic.
+The chart below shows ZK circuit logic.
 
 <br>
 <div align="center"><img src="../images/zkpass-2.png"></div>
 <br>
 
-To verify the signature, it needs proof \ allhash \ pwdhash \ fullhash, this is also the ES contract work rationale.
+To verify the signature, it needs `proof`, `allhash`, `pwdhash` and `fullhash`.
 
 <br>
 <div align="center"><img src="../images/zkpass-3.png"></div>
 <br>
 
-The user operation data, withdrawal data .etc, in front-end ZK circuit, it generates proof and allhash, then send all of them to a third-party contract, that contract can gernerate the datahash, it sends datahash \ proof \ allhash \ user address to ES contract, ES contract verifies that the datahash is from the user, which means the withdrawal data is signed by user's pwd.
+The prover generates `proof` along with the public outputs. They will send all of them to a third-party requester contract. The requester will generate the `datahash`. It sends `datahash`, `proof`, `allhash`, `expiration` and prover's address to the verifier contract. The contract verifies that the `datahash` is from the prover, which means the withdrawal operation is signed by the prover's password.
 
 
 ## Backwards Compatibility
